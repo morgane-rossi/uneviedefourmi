@@ -36,6 +36,8 @@ vector<string> lireFichier(){
 vector<string> convertirInstructions(){
 
     vector<string> instructions = lireFichier();
+    vector <string> graphes ;
+;
 
     // partie pour trouver le nombre de fourmis
     string ligne = instructions.at(0);
@@ -63,7 +65,7 @@ vector<string> convertirInstructions(){
         // récupérer RE qui correspond ou non à la présence du caractère dans la ligne
         if (ligne.find('-') != string::npos)
         {
-            cout <<"";
+            graphes.push_back(ligne);
         }
         else
         {
@@ -73,15 +75,38 @@ vector<string> convertirInstructions(){
     }
     cout << "nombre de salles : " << nbSalles << endl;
 
-    return instructions ;
+    return graphes ;
+}
+
+void construire_graphe()
+{
+    vector<string> schema = convertirInstructions();
+    list<int> fourmiliere[nbSalles];
+
+    /*
+    remplacer v par zéro et d par nbSalles - 1
+    extraire valeur gauche et valeur droite
+    */
+    for (int i = 0 ; i < schema.size() ; i++)
+    {
+        string ligne = schema.at(i);
+        string v = "v";
+        string d = "d";
+        string zero = "0";
+        string derniere = to_string(nbSalles - 1) ;
+        regex vto0(v);
+        regex dtolast(d);
+        ligne = regex_replace(ligne, vto0, zero);
+        ligne = regex_replace(ligne, dtolast, derniere);
+        cout << ligne << endl ;
+    }
 }
 
 
 int main()
 
 {
-
-    convertirInstructions();
+    construire_graphe();
 
     return 0 ;
 }
