@@ -84,8 +84,7 @@ void construire_graphe()
     list<int> fourmiliere[nbSalles];
 
     /*
-    remplacer v par zéro et d par nbSalles - 1
-    extraire valeur gauche et valeur droite
+    le schema de la fourmilière est un tableau de listes chaînées
     */
     for (int i = 0 ; i < schema.size() ; i++)
     {
@@ -93,13 +92,26 @@ void construire_graphe()
         string v = "v";
         string d = "d";
         string zero = "0";
+        string s = "S";
+        string vide = "";
         string derniere = to_string(nbSalles - 1) ;
         regex vto0(v);
         regex dtolast(d);
+        regex sToVoid(s);
         ligne = regex_replace(ligne, vto0, zero);
         ligne = regex_replace(ligne, dtolast, derniere);
-        cout << ligne << endl ;
+        ligne = regex_replace(ligne, sToVoid, vide);
+
+        int gauche, droite ;
+        size_t dash_pos = ligne.find("-");
+        string gauche_str = ligne.substr(0, dash_pos);
+        string droite_str = ligne.substr(dash_pos+1);
+        gauche = stoi(gauche_str);
+        droite = stoi(droite_str);
+
+        fourmiliere[gauche].push_back(droite);
     }
+
 }
 
 
