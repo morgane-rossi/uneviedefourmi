@@ -1,7 +1,6 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include <list>
 #include <regex>
 
 using namespace std;
