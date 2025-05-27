@@ -2,6 +2,7 @@
 #include <fstream>
 #include <vector>
 #include <regex>
+#include <climits>
 
 using namespace std;
 
@@ -153,6 +154,36 @@ void displayGraph(vector<vector<int>> graphe)
     }
 }
 
+void selectShortestGraphs(vector<vector<int>> graphe)
+{
+    // Étape 1 : Trouver la taille minimale
+    size_t min_size = min_element(
+        graphe.begin(), graphe.end(),
+        [](const vector<int>& a, const vector<int>& b) {
+            return a.size() < b.size();
+        }
+    )->size();
+
+    // Étape 2 : Récupérer tous les vecteurs ayant cette taille
+    vector<vector<int>> result;
+    for (const auto& vec : graphe) {
+        if (vec.size() == min_size) {
+            result.push_back(vec);
+        }
+    }
+
+    // Affichage du résultat
+    cout << "Vecteurs de taille minimale (" << min_size << ") :\n";
+    for (const auto& vec : result) {
+        cout << "[ ";
+        for (int val : vec) {
+            cout << val << " ";
+        }
+        cout << "]\n";
+    }
+
+}
+
 int main()
 {
     vector<vector<int>> anthill = buildGraph();
@@ -161,6 +192,7 @@ int main()
     vector<vector<int>> paths = findPaths(anthill, 0, last);
 
     displayGraph(paths);
+    selectShortestGraphs(paths);
 
     return 0 ;
 }
