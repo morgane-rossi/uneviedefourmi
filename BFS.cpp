@@ -2,6 +2,7 @@
 #include <fstream>
 #include <vector>
 #include <regex>
+#include <queue>
 
 using namespace std;
 
@@ -94,11 +95,31 @@ void DFS(int src, int dest, const vector<vector<int>> &graph, vector<int> &path,
 vector<vector<int>> findPaths(vector<vector<int>> &graph, int src, int dest){
 
     vector<vector<int>> allPaths;
-    vector<int> path;
+    queue<vector<int>> q ;
 
-    DFS(src, dest, graph, path, allPaths);
+    // initialize queue with the starting path
+    q.push({src});
 
-    return allPaths;
+    while(!q.empty())
+    {
+        vector<int>path = q.front();
+        q.pop();
+
+        int current = path.back();
+
+        if (current  == dest)
+        {
+            allPaths.push_back(path);
+        }
+
+        for(int adj : graph[current])
+        {
+            vector<int> newPath = path ;
+            newPath.push_back(adj);
+            q.push(newPath);
+        }
+    }
+    return allPaths ;
 }
 
 vector<vector<int>> buildGraph()
