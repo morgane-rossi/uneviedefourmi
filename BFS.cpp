@@ -53,7 +53,7 @@ vector<string> parseInstructions(){
     }
 
     regex tiret(".* - .*");
-    regex regex_single("^S\d+$");
+    regex regex_single("^S\\d+$");
     regex regex_range("");
 
     // partie pour trouver nombre de fourmilières
@@ -71,25 +71,6 @@ vector<string> parseInstructions(){
         }
     }
     return graphes ;
-}
-
-void DFS(int src, int dest, const vector<vector<int>> &graph, vector<int> &path, vector<vector<int>> &allPaths){
-                                    
-    // Add the current vertex to the path
-    path.push_back(src);
-
-    // Store the path when destination is reached
-    if (src == dest){
-        allPaths.push_back(path);
-    }
-    else{
-        for (int adj_node:graph[src]){
-            DFS(adj_node, dest, graph, path, allPaths);
-        }
-    }
-
-    // remove the current vertex from the path
-    path.pop_back();
 }
 
 vector<vector<int>> findPaths(vector<vector<int>> &graph, int src, int dest){

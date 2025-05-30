@@ -53,7 +53,7 @@ vector<string> parseInstructions(){
     }
 
     regex tiret(".* - .*");
-    regex regex_single("^S\d+$");
+    regex regex_single("^S\\d+$");
     regex regex_range("");
 
     // partie pour trouver nombre de fourmilières
@@ -181,7 +181,6 @@ void selectShortestGraphs(vector<vector<int>> graphe)
         }
         cout << "]\n";
     }
-
 }
 
 int main()
